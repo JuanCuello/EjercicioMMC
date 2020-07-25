@@ -22,6 +22,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding {
+        enabled = true
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -45,8 +48,11 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
     implementation "androidx.room:room-runtime:${project.ROOM_VERSION}"
     implementation "com.squareup.retrofit2:retrofit:${project.RETROFIT_VERSION}"
+    implementation "com.squareup.retrofit2:converter-gson:${project.RETROFIT_VERSION}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${project.OKHTTP_VERSION}"
     implementation "com.google.firebase:firebase-analytics:${project.FIREBASE_VERSION}"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:${project.LIFECYCLE_COMPONENTS_VERSION}"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${project.LIFECYCLE_COMPONENTS_VERSION}"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${project.LIFECYCLE_COMPONENTS_VERSION}"
 
     testImplementation 'junit:junit:4.13'

@@ -1,0 +1,6 @@
+package com.todoware.ejerciciomeli.models
+
+data class ExcludedXX(
+    val real_rate: Double,
+    val real_value: Int
+)
