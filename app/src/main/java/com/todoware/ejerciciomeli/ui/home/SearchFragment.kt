@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.todoware.ejerciciomeli.R
 
-class HomeFragment : Fragment() {
+class SearchFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
 
