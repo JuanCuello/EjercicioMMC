@@ -8,7 +8,7 @@ import com.todoware.ejerciciomeli.models.Response
 import com.todoware.ejerciciomeli.service.MercadoLibreService
 import kotlinx.coroutines.Dispatchers
 
-class DashboardViewModel : ViewModel() {
+class ResultsViewModel : ViewModel() {
 
     private val mercadoLibreRepository = MercadoLibreService()
 
@@ -22,5 +22,5 @@ class DashboardViewModel : ViewModel() {
         value = "This is dashboard Fragment"
     }
 
-    val text: LiveData<Response?> = data
+    val searchResponse: LiveData<Response?> = data
 }

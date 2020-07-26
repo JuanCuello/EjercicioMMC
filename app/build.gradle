@@ -54,9 +54,12 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:${project.LIFECYCLE_COMPONENTS_VERSION}"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${project.LIFECYCLE_COMPONENTS_VERSION}"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${project.LIFECYCLE_COMPONENTS_VERSION}"
+    implementation "com.squareup.picasso:picasso:${project.PICASSO_VERSION}"
 
-    implementation("com.squareup.okhttp3:mockwebserver:${project.RETROFIT_MOCK_VERSION}")
+
+    testImplementation "com.squareup.okhttp3:mockwebserver:${project.RETROFIT_MOCK_VERSION}"
     testImplementation 'junit:junit:4.13'
+    androidTestImplementation "com.squareup.okhttp3:mockwebserver:${project.RETROFIT_MOCK_VERSION}"
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'androidx.test:rules:1.3.0-rc01'
