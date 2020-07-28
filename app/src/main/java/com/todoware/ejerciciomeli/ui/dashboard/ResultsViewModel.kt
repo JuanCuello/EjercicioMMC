@@ -2,25 +2,38 @@ package com.todoware.ejerciciomeli.ui.dashboard
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import com.todoware.ejerciciomeli.models.Response
-import com.todoware.ejerciciomeli.service.MercadoLibreService
-import kotlinx.coroutines.Dispatchers
+import com.todoware.ejerciciomeli.models.SearchResponse
+import com.todoware.ejerciciomeli.repository.MercadoLibreRepository
+import com.todoware.ejerciciomeli.utils.SearchParams
 
-class ResultsViewModel : ViewModel() {
+class ResultsViewModel(
+    private var mlRepository: MercadoLibreRepository
+) : ViewModel() {
 
-    private val mercadoLibreRepository = MercadoLibreService()
+    private var searchFilters: MutableLiveData<SearchParams> = MutableLiveData<SearchParams>()
+    var offset: Int? = null
 
-    val data: LiveData<Response?> = liveData(Dispatchers.IO) {
-        val retrievedData = mercadoLibreRepository.searchData("macbook")
-        var data = retrievedData.execute()
-        emit(data.body())
+    val searchResultsData: LiveData<SearchResponse> =
+        Transformations.switchMap(searchFilters) { searchParams ->
+            mlRepository.searchItem(searchParams.query, searchParams.offset)
+        }
+
+    fun updateSearchQuery(query: String) {
+        searchFilters.value = SearchParams(query, 0)
     }
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
+    fun loadMore(query: String) {
+        setOffset(searchResultsData.value)
+        searchFilters.value = SearchParams(query, offset!!)
     }
 
-    val searchResponse: LiveData<Response?> = data
+    private fun setOffset(newData: SearchResponse?) {
+        newData?.let {
+            if (offset == null || offset!! < it.paging.primary_results)
+                offset = it.paging.limit
+        }
+    }
+
 }

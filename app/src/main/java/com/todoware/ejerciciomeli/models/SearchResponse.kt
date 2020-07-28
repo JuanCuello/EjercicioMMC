@@ -1,6 +1,6 @@
 package com.todoware.ejerciciomeli.models
 
-data class Response(
+data class SearchResponse(
     val available_filters: List<AvailableFilter>,
     val available_sorts: List<AvailableSort>,
     val filters: List<Filter>,
