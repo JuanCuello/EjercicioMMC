@@ -7,7 +7,7 @@ data class Response(
     val paging: Paging,
     val query: String,
     val related_results: List<Any>,
-    val results: List<Result>,
+    var results: List<Result>,
     val secondary_results: List<Any>,
     val site_id: String,
     val sort: Sort
