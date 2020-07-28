@@ -1,30 +1,58 @@
 package com.todoware.ejerciciomeli.ui.home
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.todoware.ejerciciomeli.R
+import com.todoware.ejerciciomeli.databinding.FragmentHomeBinding
+import com.todoware.ejerciciomeli.repository.MercadoLibreRepository
+import com.todoware.ejerciciomeli.ui.home.utils.HomeViewModelWrapper
+import com.todoware.ejerciciomeli.utils.UiUtils.editTextDebouncer
+
 
 class SearchFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
+    val homeViewModel: HomeViewModel by viewModels {
+        HomeViewModelWrapper(MercadoLibreRepository())
+    }
+    lateinit var binding: FragmentHomeBinding
+    var searchForValue = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
+        // homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        binding = FragmentHomeBinding.inflate(inflater, null, false)
+        return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val handler = Handler()
+
+        binding.textHome.doAfterTextChanged {
+            editTextDebouncer(it, searchForValue, ::startSearch, handler)
+        }
+
+        homeViewModel.searchResultsData.observe(viewLifecycleOwner, Observer { response ->
+            if (response != null) {
+                context
+                binding.searchTextTitle.text = response.available_filters.toString()
+
+            }
         })
-        return root
+    }
+
+    fun startSearch(search: String) {
+        searchForValue = search
+        homeViewModel.updateSearchQuery(searchForValue)
+
     }
 }

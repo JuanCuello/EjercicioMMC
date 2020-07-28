@@ -14,6 +14,7 @@ Android studio 4, Gradle 4, Kotlin 1.3.72, compile sdk 29
     For rest communication we relay on the SQUARE's Retrofit2, com.squareup.retrofit2 and converter-gson version 2.9.0
     Crashalytics automated error report Crashalytics (and maybe remote config), com.google.firebase:firebase-analytics version 17.4.4
     Mock server from squareup com.squareup.okhttp3:mockwebserver current version 4.8.0
+    Picasso image loader is used for remote image fetching com.squareup.picasso current version 2.71828
 
 # Out of scope:
    - Analytics for data/behavior analysis.

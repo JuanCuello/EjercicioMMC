@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.todoware.ejerciciomeli.ui.dashboard.DashboardFragment"
+        android:name="com.todoware.ejerciciomeli.ui.dashboard.ResultsListFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_results" />
 
     <fragment
         android:id="@+id/navigation_notifications"

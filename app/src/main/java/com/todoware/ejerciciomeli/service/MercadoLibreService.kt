@@ -11,7 +11,9 @@ class MercadoLibreService {
         overrideBaseUrl ?: API_ADDRESS
     )
 
-    suspend fun searchData(query: String) = client.search(query)
+    fun searchData(query: String, offset: Int? ) = client.search(query, offset)
+
+
 
     companion object {
         var overrideBaseUrl: String? = null
