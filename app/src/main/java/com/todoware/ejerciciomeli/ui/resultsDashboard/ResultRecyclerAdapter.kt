@@ -15,7 +15,7 @@ import com.todoware.ejerciciomeli.models.SearchResponse
 class ResultRecyclerAdapter(
     var context: Context
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    var searchResponse: SearchResponse?=null
+    var searchResponse: SearchResponse? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
             RecyclerView.ViewHolder {
@@ -42,12 +42,12 @@ class ResultRecyclerAdapter(
     }
 
     override fun getItemCount(): Int {
-        return searchResponse?.results?.size?:0
+        return searchResponse?.results?.size ?: 0
     }
 
     // Set the content
     fun addContent(newResponse: SearchResponse) {
-         searchResponse = newResponse
+        searchResponse = newResponse
     }
 
     internal inner class RecyclerViewViewHolder(itemView: View) :

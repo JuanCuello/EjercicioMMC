@@ -93,18 +93,16 @@ class ResultsListFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onStart() {
         super.onStart()
         resultsViewModel.searchResultsData.value?.let {
             recyclerAdapter?.addContent(it)
         }
-
     }
 
     fun startSearch(search: String) {
         searchForValue = search
-        resultsViewModel.updateSearchQuery(searchForValue)
+        resultsViewModel.searchQuery(searchForValue)
 
     }
 }
