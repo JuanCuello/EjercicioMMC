@@ -1,4 +1,4 @@
-package com.todoware.ejerciciomeli.ui.dashboard
+package com.todoware.ejerciciomeli.ui.resultsDashboard
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -13,16 +13,17 @@ import com.todoware.ejerciciomeli.models.Result
 import com.todoware.ejerciciomeli.models.SearchResponse
 
 class ResultRecyclerAdapter(
-    var context: Context,
-    var searchSearchResponse: SearchResponse
+    var context: Context
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): RecyclerView.ViewHolder {
-        val rootView =
+    var searchResponse: SearchResponse? = null
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
+            RecyclerView.ViewHolder {
+
+        // Resullt element
+        return RecyclerViewViewHolder(
             LayoutInflater.from(context).inflate(R.layout.item_result_element, parent, false)
-        return RecyclerViewViewHolder(rootView)
+        )
     }
 
     override fun onBindViewHolder(
@@ -30,15 +31,31 @@ class ResultRecyclerAdapter(
         position: Int
     ) {
         val viewHolder = holder as RecyclerViewViewHolder
-        val result: Result = searchSearchResponse.results[position]
-        // Picasso is handling the external image fetching
-        Picasso.get().load(result.thumbnail).into(viewHolder.imgViewIcon)
-        viewHolder.txtViewTitle.text = result.title
-        viewHolder.txtViewDescription.text = result.price.toString()
+        val result: Result? = searchResponse?.results?.get(position)
+
+        result?.let {
+            // Picasso is handling the external image fetching
+            Picasso.get().load(result.thumbnail).into(viewHolder.imgViewIcon)
+            viewHolder.txtViewTitle.text = result.title
+            viewHolder.txtViewDescription.text = result.price.toString()
+        }
     }
 
     override fun getItemCount(): Int {
-        return searchSearchResponse.results.size
+        return searchResponse?.results?.size ?: 0
+    }
+
+    // Set the content and merge results for multiple
+    fun addContent(newResponse: SearchResponse, currentSearch: String? = null) {
+        if (newResponse?.query == searchResponse?.query) {
+            mergeResults(newResponse)
+        } else {
+            searchResponse = newResponse
+        }
+    }
+
+    fun mergeResults(newResponse: SearchResponse) {
+        searchResponse?.results?.addAll(newResponse.results)
     }
 
     internal inner class RecyclerViewViewHolder(itemView: View) :

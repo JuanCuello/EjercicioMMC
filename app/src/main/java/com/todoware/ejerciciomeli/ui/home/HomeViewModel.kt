@@ -7,20 +7,23 @@ import androidx.lifecycle.ViewModel
 import com.todoware.ejerciciomeli.models.SearchResponse
 import com.todoware.ejerciciomeli.repository.MercadoLibreRepository
 
+class HomeViewModel() : ViewModel() {
+    // Repository to observe
+    fun setRepository(mercadoLibreRepository: MercadoLibreRepository) {
+        mlRepository = mercadoLibreRepository
+    }
 
-class HomeViewModel(
-    private var mlRepository: MercadoLibreRepository
-) : ViewModel() {
+    private var searchFilters: MutableLiveData<String> = MutableLiveData()
+    var mlRepository: MercadoLibreRepository? = null
 
-    private var searchFilters: MutableLiveData<String> = MutableLiveData<String>()
-
+    // Livedata with the filters updated
     val searchResultsData: LiveData<SearchResponse> =
         Transformations.switchMap(searchFilters) { data ->
-            mlRepository.searchItem(data)
+            mlRepository?.searchItem(data)
         }
-
 
     fun updateSearchQuery(query: String) {
         searchFilters.value = query
     }
+
 }

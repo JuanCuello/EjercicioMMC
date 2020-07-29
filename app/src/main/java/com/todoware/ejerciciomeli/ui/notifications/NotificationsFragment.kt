@@ -19,9 +19,16 @@ class NotificationsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        // shows Toolabr back button
+        activity?.actionBar?.setDisplayHomeAsUpEnabled(true);
+        activity?.actionBar?.setDisplayShowHomeEnabled(true);
+
         notificationsViewModel = ViewModelProvider(this).get(NotificationsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_notifications, container, false)
         val textView: TextView = root.findViewById(R.id.text_notifications)
+
+        // observe the data if changed
         notificationsViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })

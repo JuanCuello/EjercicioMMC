@@ -9,17 +9,15 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.todoware.ejerciciomeli.databinding.FragmentHomeBinding
 import com.todoware.ejerciciomeli.repository.MercadoLibreRepository
-import com.todoware.ejerciciomeli.ui.home.utils.HomeViewModelWrapper
 import com.todoware.ejerciciomeli.utils.UiUtils.editTextDebouncer
 
 
 class SearchFragment : Fragment() {
 
-    val homeViewModel: HomeViewModel by viewModels {
-        HomeViewModelWrapper(MercadoLibreRepository())
-    }
+    lateinit var homeViewModel: HomeViewModel
     lateinit var binding: FragmentHomeBinding
     var searchForValue = ""
 
@@ -28,17 +26,18 @@ class SearchFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+
+        homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+            .apply { setRepository(MercadoLibreRepository()) }
         binding = FragmentHomeBinding.inflate(inflater, null, false)
         return binding.root
     }
 
     override fun onResume() {
         super.onResume()
-        val handler = Handler()
 
-        binding.textHome.doAfterTextChanged {
-            editTextDebouncer(it, searchForValue, ::startSearch, handler)
+        binding.searchEditText.doAfterTextChanged {
+            editTextDebouncer(it, searchForValue, ::startSearch,  Handler())
         }
 
         homeViewModel.searchResultsData.observe(viewLifecycleOwner, Observer { response ->
