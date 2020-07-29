@@ -17,7 +17,10 @@ import com.todoware.ejerciciomeli.repository.MercadoLibreRepository
 import com.todoware.ejerciciomeli.utils.PaginationListener
 import com.todoware.ejerciciomeli.utils.UiUtils
 
-
+/**
+ * Shows the basic search and a list of the results to the user
+ * This view will be the default to the navigation on the activity
+ */
 class ResultsListFragment : Fragment() {
 
     lateinit var binding: FragmentResultsBinding
@@ -41,7 +44,6 @@ class ResultsListFragment : Fragment() {
                 .apply { setRepository(MercadoLibreRepository()) }
         }
 
-        var isLoading = false
         binding = FragmentResultsBinding.inflate(inflater, null, false)
         layoutManager = LinearLayoutManager(context)
         recyclerAdapter = recyclerAdapter ?: ResultRecyclerAdapter(requireContext())
@@ -49,23 +51,18 @@ class ResultsListFragment : Fragment() {
 
         binding.content.setLayoutManager(layoutManager)
         binding.content.setAdapter(recyclerAdapter)
+        var isLoading = false
 
         binding.content.addOnScrollListener(object : PaginationListener(layoutManager) {
-            override fun isLastPage(): Boolean {
-                isLoading = false
-                return isLoading
-            }
 
             override fun loadMoreItems() {
-                resultsViewModel.loadMore(binding.resultsTextDescription.text as String)
-
+                resultsViewModel.loadMore(searchForValue)
                 isLoading = true;
             }
 
             override fun isLoading(): Boolean {
                 return isLoading
             }
-
         })
         resultsViewModel.searchResultsData.observe(viewLifecycleOwner, Observer { response ->
             binding.resultsTextDescription.text = response?.query.toString()
@@ -73,13 +70,15 @@ class ResultsListFragment : Fragment() {
 
                 // initialize the adapter if null and set the data
                 recyclerAdapter?.let {
-                    it.addContent(response)
+                    it.addContent(response, searchForValue)
                     it.notifyDataSetChanged()
+                    isLoading = false
 
                 }
             } else {
                 // ErrorView
             }
+
         })
 
         binding.resultFilterButton.setOnClickListener {
@@ -102,6 +101,7 @@ class ResultsListFragment : Fragment() {
 
     fun startSearch(search: String) {
         searchForValue = search
+
         resultsViewModel.searchQuery(searchForValue)
 
     }

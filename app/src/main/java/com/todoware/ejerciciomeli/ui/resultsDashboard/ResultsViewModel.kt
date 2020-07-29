@@ -8,8 +8,7 @@ import com.todoware.ejerciciomeli.models.SearchResponse
 import com.todoware.ejerciciomeli.repository.MercadoLibreRepository
 import com.todoware.ejerciciomeli.utils.SearchParams
 
-class ResultsViewModel(
-) : ViewModel() {
+class ResultsViewModel() : ViewModel() {
 
     var mlRepository: MercadoLibreRepository? = null
     fun setRepository(mercadoLibreRepository: MercadoLibreRepository) {
@@ -42,9 +41,7 @@ class ResultsViewModel(
     fun loadMore(query: String) {
         if (query != lastSearch) {
             offset = 0
-            lastSearch = null
         }
-
         setOffset(searchResultsData.value)
         searchFilters.value = SearchParams(query, offset)
     }
@@ -52,7 +49,7 @@ class ResultsViewModel(
     private fun setOffset(newData: SearchResponse?) {
         newData?.let {
             if (offset == null || offset!! < it.paging.primary_results) {
-                offset = it.paging.limit
+                offset = offset + it.paging.limit // next Page
                 lastSearch = it.query
             }
         }

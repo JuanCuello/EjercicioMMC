@@ -7,7 +7,7 @@ data class SearchResponse(
     val paging: Paging,
     val query: String,
     val related_results: List<Any>,
-    var results: List<Result>,
+    var results: MutableList<Result>,
     val secondary_results: List<Any>,
     val site_id: String,
     val sort: Sort

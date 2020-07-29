@@ -45,9 +45,17 @@ class ResultRecyclerAdapter(
         return searchResponse?.results?.size ?: 0
     }
 
-    // Set the content
-    fun addContent(newResponse: SearchResponse) {
-        searchResponse = newResponse
+    // Set the content and merge results for multiple
+    fun addContent(newResponse: SearchResponse, currentSearch: String? = null) {
+        if (newResponse?.query == searchResponse?.query) {
+            mergeResults(newResponse)
+        } else {
+            searchResponse = newResponse
+        }
+    }
+
+    fun mergeResults(newResponse: SearchResponse) {
+        searchResponse?.results?.addAll(newResponse.results)
     }
 
     internal inner class RecyclerViewViewHolder(itemView: View) :
