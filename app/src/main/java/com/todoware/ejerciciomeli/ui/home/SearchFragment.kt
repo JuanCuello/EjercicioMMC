@@ -35,10 +35,9 @@ class SearchFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        val handler = Handler()
 
-        binding.textHome.doAfterTextChanged {
-            editTextDebouncer(it, searchForValue, ::startSearch, handler)
+        binding.searchEditText.doAfterTextChanged {
+            editTextDebouncer(it, searchForValue, ::startSearch,  Handler())
         }
 
         homeViewModel.searchResultsData.observe(viewLifecycleOwner, Observer { response ->

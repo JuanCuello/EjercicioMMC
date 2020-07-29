@@ -9,11 +9,9 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MercadoLibreRepository {
-
     var client = MercadoLibreService()
 
-
-    fun searchItem(query: String, offset: Int? = null): LiveData<SearchResponse>? {
+    fun searchItem(query: String, offset: Int? = null): LiveData<SearchResponse> {
 
         val data = MutableLiveData<SearchResponse>()
         client.searchData(query, offset).enqueue(object : Callback<SearchResponse> {
@@ -25,7 +23,7 @@ class MercadoLibreRepository {
             }
 
             override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
-
+                data.value = null
             }
         })
         return data
