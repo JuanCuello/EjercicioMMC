@@ -55,8 +55,8 @@ class ResultRecyclerAdapter(
     }
 
     // Set the content and merge results for multiple
-    fun addContent(newResponse: SearchResponse, currentSearch: String? = null) {
-        if (newResponse?.query == searchResponse?.query) {
+    fun addContent(newResponse: SearchResponse) {
+        if (newResponse.query == searchResponse?.query) {
             mergeResults(newResponse)
         } else {
             searchResponse = newResponse

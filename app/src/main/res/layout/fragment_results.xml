@@ -29,8 +29,9 @@
     <TextView
         android:id="@+id/results_text_description"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/view_space_between_margin"
         android:layout_below="@id/results_text_container"
+        android:layout_margin="@dimen/view_space_medium"
         android:textAlignment="textStart"
         android:textSize="16sp" />
 
@@ -39,12 +40,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/results_text_container"
-        android:layout_alignRight="@+id/results_text_description" />
+        android:layout_alignRight="@+id/results_text_description"
+        android:enabled="false"
+        android:text="@string/search_advance_button" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/content"
+    <com.shouquan.statelayout.StateLayout
+        android:id="@+id/layout_state"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/results_text_description" />
+        android:layout_below="@id/results_text_description"
+        app:sl_error_view="@layout/state_layout_error"
+        app:sl_loading_view="@layout/state_layout_progress">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.shouquan.statelayout.StateLayout>
 </RelativeLayout>

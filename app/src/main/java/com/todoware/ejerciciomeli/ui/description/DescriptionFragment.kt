@@ -1,4 +1,4 @@
-package com.todoware.ejerciciomeli.ui.notifications
+package com.todoware.ejerciciomeli.ui.description
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,7 +16,7 @@ import java.text.NumberFormat
 class DescriptionFragment : Fragment() {
 
     private val resultsViewModel: ResultsViewModel by activityViewModels()
-    lateinit var binding: FragmentDescriptionBinding
+    private lateinit var binding: FragmentDescriptionBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,9 +24,6 @@ class DescriptionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentDescriptionBinding.inflate(inflater, null, false)
-
-        // shows Toolbar back button
-
 
         // observe the data if changed
         resultsViewModel.selected.value?.let {
@@ -39,7 +36,8 @@ class DescriptionFragment : Fragment() {
 
             binding.itemDescriptionDeliveryText.text =
                 if (it.shipping.free_shipping) getText(R.string.yes) else getText(R.string.no)
-            binding.itemDescriptionLocationText.text = it.seller_address.address_line
+            var location = "${ it.seller_address.city.name},  ${ it.seller_address.state.name} "
+            binding.itemDescriptionLocationText.text = location
 
         }
 

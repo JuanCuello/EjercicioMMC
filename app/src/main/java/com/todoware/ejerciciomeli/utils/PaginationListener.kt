@@ -25,6 +25,6 @@ abstract class PaginationListener
     }
 
     abstract fun loadMoreItems()
-    abstract fun isLoading() : Boolean
+    abstract fun isLoading(): Boolean
 
 }

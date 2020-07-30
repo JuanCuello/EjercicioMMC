@@ -3,12 +3,7 @@ package com.todoware.ejerciciomeli
 
 import android.view.View
 import android.view.ViewGroup
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
-import androidx.test.runner.AndroidJUnit4
 import com.todoware.ejerciciomeli.service.MercadoLibreService
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
@@ -16,17 +11,12 @@ import okhttp3.mockwebserver.MockWebServer
 import okhttp3.mockwebserver.RecordedRequest
 import org.hamcrest.Description
 import org.hamcrest.Matcher
-import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
 import org.junit.Before
 import org.junit.Rule
-import org.junit.Test
-import org.junit.runner.RunWith
 
 
-@LargeTest
-@RunWith(AndroidJUnit4::class)
-class SearchMockTest {
+open class SearchMockTest {
 
     @Rule
     @JvmField
@@ -45,43 +35,7 @@ class SearchMockTest {
 
     }
 
-    @Test
-    fun searchMockTest() {
-
-        val bottomNavigationItemView = onView(
-            allOf(
-                withId(R.id.navigation_dashboard), withContentDescription("Dashboard"),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.nav_view),
-                        0
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-
-        bottomNavigationItemView.perform(click())
-
-        val bottomNavigationItemView2 = onView(
-            allOf(
-                withId(R.id.navigation_dashboard), withContentDescription("Dashboard"),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.nav_view),
-                        0
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-
-
-    }
-
-    private fun childAtPosition(
+    fun childAtPosition(
         parentMatcher: Matcher<View>, position: Int
     ): Matcher<View> {
 
@@ -100,7 +54,7 @@ class SearchMockTest {
     }
 
 
-    private fun dispatcherForSearch(): Dispatcher {
+    fun dispatcherForSearch(): Dispatcher {
         return object : Dispatcher() {
             @Throws(InterruptedException::class)
             override fun dispatch(request: RecordedRequest): MockResponse {
@@ -116,4 +70,5 @@ class SearchMockTest {
         }
 
     }
+
 }

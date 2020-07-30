@@ -4,12 +4,13 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="accessibility_description_image">this is a image of the product</string>
+    <string name="msg_welcome_search">Welcome, please search for something</string>
 
     <!-- Common -->
     <string name="yes">yes</string>
     <string name="no">no</string>
 
-    <!-- Description view -->
+    <!-- Items Values -->
     <string name="item_condition_new">New item</string>
     <string name="item_condition_used">New used</string>
     <string name="item_condition_refurvished">New refurbished</string>
@@ -22,6 +23,14 @@
     <string name="description_condition">Condition:</string>
     <string name="description_location">Seller location:</string>
     <string name="description_delivery">Free Shipping:</string>
+
+    <!-- Results view -->
+    <string name="search_advance_button">Filters...</string>
+
+    <!-- Network view -->
+    <string name="network_error">Network error.</string>
+    <string name="currentSearchParameters">Showing results for</string>
+    <string name="empty_search">We don\'t find anything for this search, \n Please search for something else.</string>
 
 
 </resources>

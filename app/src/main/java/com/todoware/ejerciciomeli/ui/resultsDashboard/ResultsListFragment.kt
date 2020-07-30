@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.shouquan.statelayout.StateLayout
 import com.todoware.ejerciciomeli.R
 import com.todoware.ejerciciomeli.databinding.FragmentResultsBinding
 import com.todoware.ejerciciomeli.models.Result
@@ -27,6 +28,8 @@ class ResultsListFragment : Fragment() {
     lateinit var binding: FragmentResultsBinding
     lateinit var layoutManager: LinearLayoutManager
     lateinit var resultsViewModel: ResultsViewModel
+    private val STATE_EMPTY = 3
+    private val STATE_INITIAL = 4
 
     // safeguard to not show results that doesn't match the search
     var searchForValue = ""
@@ -39,7 +42,6 @@ class ResultsListFragment : Fragment() {
 
         // attach this view model to the activity lyfecycle since this response is needed
         // by the others fragments as well
-
         activity?.let { it ->
             resultsViewModel = ViewModelProvider(it).get(ResultsViewModel::class.java)
                 .apply { setRepository(MercadoLibreRepository()) }
@@ -53,10 +55,13 @@ class ResultsListFragment : Fragment() {
 
         binding.content.setLayoutManager(layoutManager)
         binding.content.setAdapter(recyclerAdapter)
+        binding.layoutState.setViewForState(STATE_EMPTY, R.layout.state_layout_empty)
+        binding.layoutState.setViewForState(STATE_INITIAL, R.layout.state_layout_empty)
+        binding.layoutState.setState(STATE_INITIAL)
+
         var isLoading = false
 
         binding.content.addOnScrollListener(object : PaginationListener(layoutManager) {
-
             override fun loadMoreItems() {
                 resultsViewModel.loadMore(searchForValue)
                 isLoading = true;
@@ -67,20 +72,24 @@ class ResultsListFragment : Fragment() {
             }
         })
         resultsViewModel.searchResultsData.observe(viewLifecycleOwner, Observer { response ->
-            binding.resultsTextDescription.text = response?.query.toString()
+            binding.resultsTextDescription.text =
+                "${getText(R.string.currentSearchParameters)}= ${response?.query}"
             if (response != null) {
-
-                // initialize the adapter if null and set the data
-                recyclerAdapter?.let {
-                    it.addContent(response, searchForValue)
-                    it.notifyDataSetChanged()
-                    isLoading = false
-
+                if (response.results.isEmpty())
+                    binding.layoutState.setState(STATE_EMPTY)
+                else {
+                    // initialize the adapter if null and set the data
+                    recyclerAdapter?.let {
+                        it.addContent(response)
+                        it.notifyDataSetChanged()
+                        binding.layoutState.setState(StateLayout.STATE_CONTENT)
+                        isLoading = false
+                        binding.resultFilterButton.isEnabled = true
+                    }
                 }
             } else {
-                // ErrorView
+                binding.layoutState.setState(StateLayout.STATE_ERROR)
             }
-
         })
 
         binding.resultFilterButton.setOnClickListener {
@@ -110,6 +119,7 @@ class ResultsListFragment : Fragment() {
     fun startSearch(search: String) {
         searchForValue = search
         resultsViewModel.searchQuery(searchForValue)
+        binding.layoutState.setState(StateLayout.STATE_LOADING)
 
     }
 }
