@@ -17,7 +17,7 @@
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_results">
         <action
-            android:id="@+id/action_b_to_a"
+            android:id="@+id/action_results_to_filters"
             app:destination="@id/navigation_home"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
@@ -25,11 +25,23 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@+id/navigation_home"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_results_to_details"
+            app:destination="@id/navigation_notifications"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@+id/navigation_notifications"
+            app:popUpToInclusive="true" />
+
     </fragment>
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.todoware.ejerciciomeli.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:name="com.todoware.ejerciciomeli.ui.notifications.DescriptionFragment"
+        android:label="@string/description_screen_title"
+        tools:layout="@layout/fragment_description" >
+
+    </fragment>
 </navigation>

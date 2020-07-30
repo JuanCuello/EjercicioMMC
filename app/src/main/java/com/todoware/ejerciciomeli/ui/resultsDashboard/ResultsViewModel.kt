@@ -4,18 +4,31 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import com.todoware.ejerciciomeli.models.Result
 import com.todoware.ejerciciomeli.models.SearchResponse
 import com.todoware.ejerciciomeli.repository.MercadoLibreRepository
 import com.todoware.ejerciciomeli.utils.SearchParams
 
+/**
+ *  View model promoted to activity context please refer to this for the details
+ *  https://developer.android.com/topic/libraries/architecture/viewmodel#sharing
+ */
+
 class ResultsViewModel() : ViewModel() {
 
+    // Add the avility to trigger the repository to retrive the data
     var mlRepository: MercadoLibreRepository? = null
     fun setRepository(mercadoLibreRepository: MercadoLibreRepository) {
         mlRepository = mercadoLibreRepository
     }
 
-    // internal liveData that triggers the search on the repository
+    // Selected item to propagate between views
+    val selected = MutableLiveData<Result>()
+    fun select(item: Result) {
+        selected.value = item
+    }
+
+    // Internal liveData that triggers the parametrize the search
     private var searchFilters: MutableLiveData<SearchParams> = MutableLiveData<SearchParams>()
     var offset: Int = 0
     var lastSearch: String? = null

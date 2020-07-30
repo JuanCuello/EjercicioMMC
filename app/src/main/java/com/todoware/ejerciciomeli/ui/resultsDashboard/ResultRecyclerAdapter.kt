@@ -11,9 +11,12 @@ import com.squareup.picasso.Picasso
 import com.todoware.ejerciciomeli.R
 import com.todoware.ejerciciomeli.models.Result
 import com.todoware.ejerciciomeli.models.SearchResponse
+import java.text.NumberFormat
 
 class ResultRecyclerAdapter(
-    var context: Context
+    var context: Context,
+    var onItemClick: (param: Result) -> Unit
+
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var searchResponse: SearchResponse? = null
 
@@ -37,7 +40,13 @@ class ResultRecyclerAdapter(
             // Picasso is handling the external image fetching
             Picasso.get().load(result.thumbnail).into(viewHolder.imgViewIcon)
             viewHolder.txtViewTitle.text = result.title
-            viewHolder.txtViewDescription.text = result.price.toString()
+            val price = NumberFormat.getCurrencyInstance().format(result.price ?: 0)
+            var description = "${context.getText(R.string.description_price)} :$price"
+            viewHolder.txtViewDescription.text = description
+
+            viewHolder.recycleItemRow.setOnClickListener {
+                onItemClick(result)
+            }
         }
     }
 
@@ -63,7 +72,7 @@ class ResultRecyclerAdapter(
         var imgViewIcon: ImageView = itemView.findViewById(R.id.item_result_img)
         var txtViewTitle: TextView = itemView.findViewById(R.id.item_result_title)
         var txtViewDescription: TextView = itemView.findViewById(R.id.item_result_description)
-
+        var recycleItemRow: View = itemView.findViewById(R.id.recycle_item_row)
 
     }
 

@@ -3,4 +3,25 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="accessibility_description_image">this is a image of the product</string>
+
+    <!-- Common -->
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+
+    <!-- Description view -->
+    <string name="item_condition_new">New item</string>
+    <string name="item_condition_used">New used</string>
+    <string name="item_condition_refurvished">New refurbished</string>
+    <string name="item_condition_unknown">Not available</string>
+
+    <!-- Description view -->
+    <string name="description_screen_title">Item description</string>
+    <string name="description_title">Title:</string>
+    <string name="description_price">Product price:</string>
+    <string name="description_condition">Condition:</string>
+    <string name="description_location">Seller location:</string>
+    <string name="description_delivery">Free Shipping:</string>
+
+
 </resources>
