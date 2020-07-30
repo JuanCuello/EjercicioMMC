@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">EjercicioMeli</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="accessibility_description_image">this is a image of the product</string>
+
+    <!-- Common -->
+    <string name="yes">si</string>
+    <string name="no">no</string>
+
+    <!-- Items Values -->
+    <string name="item_condition_new">Item Nuevo</string>
+    <string name="item_condition_used">Item Usado</string>
+    <string name="item_condition_refurvished">Item refurbish</string>
+    <string name="item_condition_unknown">No disponible</string>
+
+    <!-- Description view -->
+    <string name="description_screen_title">Descripción de producto</string>
+    <string name="description_title">Titulo:</string>
+    <string name="description_price">Precio de producto:</string>
+    <string name="description_condition">Condición:</string>
+    <string name="description_location">Ubicación del vendedor:</string>
+    <string name="description_delivery">Envio gratis:</string>
+
+
+</resources>

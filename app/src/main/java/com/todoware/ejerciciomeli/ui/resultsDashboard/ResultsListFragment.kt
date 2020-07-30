@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.todoware.ejerciciomeli.R
 import com.todoware.ejerciciomeli.databinding.FragmentResultsBinding
+import com.todoware.ejerciciomeli.models.Result
 import com.todoware.ejerciciomeli.repository.MercadoLibreRepository
 import com.todoware.ejerciciomeli.utils.PaginationListener
 import com.todoware.ejerciciomeli.utils.UiUtils
@@ -46,7 +47,8 @@ class ResultsListFragment : Fragment() {
 
         binding = FragmentResultsBinding.inflate(inflater, null, false)
         layoutManager = LinearLayoutManager(context)
-        recyclerAdapter = recyclerAdapter ?: ResultRecyclerAdapter(requireContext())
+        recyclerAdapter =
+            recyclerAdapter ?: ResultRecyclerAdapter(requireContext(), this::onItemClick)
 
 
         binding.content.setLayoutManager(layoutManager)
@@ -82,7 +84,7 @@ class ResultsListFragment : Fragment() {
         })
 
         binding.resultFilterButton.setOnClickListener {
-            findNavController().navigate(R.id.action_b_to_a)
+            findNavController().navigate(R.id.action_results_to_filters)
         }
 
         binding.resultsEditText.doAfterTextChanged {
@@ -90,6 +92,12 @@ class ResultsListFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun onItemClick(result: Result?) {
+        result ?: return
+        resultsViewModel.select(result)
+        findNavController().navigate(R.id.action_results_to_details)
     }
 
     override fun onStart() {
@@ -101,7 +109,6 @@ class ResultsListFragment : Fragment() {
 
     fun startSearch(search: String) {
         searchForValue = search
-
         resultsViewModel.searchQuery(searchForValue)
 
     }

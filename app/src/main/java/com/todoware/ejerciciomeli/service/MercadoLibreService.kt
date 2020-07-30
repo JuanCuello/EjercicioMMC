@@ -13,8 +13,7 @@ class MercadoLibreService {
 
     fun searchData(query: String, offset: Int? ) = client.search(query, offset)
 
-
-
+    // Required for MockWebServer
     companion object {
         var overrideBaseUrl: String? = null
     }

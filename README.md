@@ -17,9 +17,9 @@ Android studio 4, Gradle 4, Kotlin 1.3.72, compile sdk 29
     Picasso image loader is used for remote image fetching com.squareup.picasso current version 2.71828
 
 # Out of scope:
+   - Grid layout manager to present on landscape layout
    - Analytics for data/behavior analysis.
    - Dexguard and dex2jar counter measures
-   - CI/CD
 
 # License
   Apache License 2.0
