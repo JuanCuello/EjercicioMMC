@@ -4,6 +4,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="accessibility_description_image">this is a image of the product</string>
+    <string name="msg_welcome_search">Bienvenido, por favor ingrese una búsqueda</string>
 
     <!-- Common -->
     <string name="yes">si</string>
@@ -23,5 +24,12 @@
     <string name="description_location">Ubicación del vendedor:</string>
     <string name="description_delivery">Envio gratis:</string>
 
+    <!-- Results view -->
+    <string name="search_advance_button">Filtros...</string>
+
+    <!-- Network view -->
+    <string name="network_error">Error de red.</string>
+    <string name="currentSearchParameters">Resultados de</string>
+    <string name="empty_search">No hemos encontrado nada para esta busqueda, \n Por favor intente otra busqueda.</string>
 
 </resources>

@@ -11,5 +11,6 @@
     <dimen name="view_space_small">4dp</dimen>
     <dimen name="view_space_medium">6dp</dimen>
     <dimen name="view_space_big">8dp</dimen>
+    <dimen name="view_space_between_margin">40dp</dimen>
 
 </resources>

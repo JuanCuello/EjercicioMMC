@@ -58,6 +58,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${project.LIFECYCLE_COMPONENTS_VERSION}"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${project.LIFECYCLE_COMPONENTS_VERSION}"
     implementation "com.squareup.picasso:picasso:${project.PICASSO_VERSION}"
+    implementation 'com.shouquan:StateLayout:1.0.0'
 
 
     testImplementation "com.squareup.okhttp3:mockwebserver:${project.RETROFIT_MOCK_VERSION}"

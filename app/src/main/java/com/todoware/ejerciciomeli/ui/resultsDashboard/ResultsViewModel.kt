@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.todoware.ejerciciomeli.models.Result
 import com.todoware.ejerciciomeli.models.SearchResponse
 import com.todoware.ejerciciomeli.repository.MercadoLibreRepository
-import com.todoware.ejerciciomeli.utils.SearchParams
+import com.todoware.ejerciciomeli.utils.SearchParamsUtils.SearchParams
 
 /**
  *  View model promoted to activity context please refer to this for the details
@@ -61,7 +61,7 @@ class ResultsViewModel() : ViewModel() {
 
     private fun setOffset(newData: SearchResponse?) {
         newData?.let {
-            if (offset == null || offset!! < it.paging.primary_results) {
+            if (offset < it.paging.primary_results) {
                 offset = offset + it.paging.limit // next Page
                 lastSearch = it.query
             }
