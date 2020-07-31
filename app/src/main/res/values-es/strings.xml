@@ -3,7 +3,9 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="accessibility_description_image">this is a image of the product</string>
+    <string name="accessibility_description_image">Esta es una imagen del producto</string>
+    <string name="accessibility_description_image_empty">sta es una imagen de error, sin items que mostrar</string>
+    <string name="accessibility_description_image_network_error">sta es una imagen de error de red</string>
     <string name="msg_welcome_search">Bienvenido, por favor ingrese una búsqueda</string>
 
     <!-- Common -->
@@ -25,10 +27,10 @@
     <string name="description_delivery">Envio gratis:</string>
 
     <!-- Results view -->
-    <string name="search_advance_button">Filtros...</string>
+    <string name="search_advance_button">Filtros…</string>
 
     <!-- Network view -->
-    <string name="network_error">Error de red.</string>
+    <string name="network_error">Error de red. \n Por favor reintente más tarde.</string>
     <string name="currentSearchParameters">Resultados de</string>
     <string name="empty_search">No hemos encontrado nada para esta busqueda, \n Por favor intente otra busqueda.</string>
 
