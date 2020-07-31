@@ -14,11 +14,11 @@ import com.todoware.ejerciciomeli.models.SearchResponse
 import java.text.NumberFormat
 
 class ResultRecyclerAdapter(
-    var context: Context,
+    private var context: Context,
     var onItemClick: (param: Result) -> Unit
 
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    var searchResponse: SearchResponse? = null
+    private var searchResponse: SearchResponse? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
             RecyclerView.ViewHolder {
@@ -41,7 +41,7 @@ class ResultRecyclerAdapter(
             Picasso.get().load(result.thumbnail).into(viewHolder.imgViewIcon)
             viewHolder.txtViewTitle.text = result.title
             val price = NumberFormat.getCurrencyInstance().format(result.price ?: 0)
-            var description = "${context.getText(R.string.description_price)} :$price"
+            val description = "${context.getText(R.string.description_price)} :$price"
             viewHolder.txtViewDescription.text = description
 
             viewHolder.recycleItemRow.setOnClickListener {
@@ -63,7 +63,7 @@ class ResultRecyclerAdapter(
         }
     }
 
-    fun mergeResults(newResponse: SearchResponse) {
+    private fun mergeResults(newResponse: SearchResponse) {
         searchResponse?.results?.addAll(newResponse.results)
     }
 

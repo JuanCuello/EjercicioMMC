@@ -13,7 +13,8 @@ class MercadoLibreService {
     fun searchData(query: String, offset: Int?) : Call<SearchResponse> {
         client = client ?: RestClientBuilder.createService(
             MercadolibreApi::class.java,
-            overrideBaseUrl ?: API_ADDRESS
+            overrideBaseUrl
+                ?: API_ADDRESS
         )
 
         return client!!.search(query, offset)
