@@ -15,7 +15,7 @@ object UiUtils {
      * @param handler The owner of the runnables
      **/
 
-    fun editTextDebouncer(
+    fun editTextDebounce(
         editable: Editable?,
         oldText: String,
         onChange: (param: String) -> Unit,

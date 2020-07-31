@@ -1,4 +1,4 @@
-package com.todoware.ejerciciomeli.ui.resultsDashboard
+package com.todoware.ejerciciomeli.ui.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,10 +7,12 @@ import androidx.lifecycle.ViewModel
 import com.todoware.ejerciciomeli.models.Result
 import com.todoware.ejerciciomeli.models.SearchResponse
 import com.todoware.ejerciciomeli.repository.MercadoLibreRepository
-import com.todoware.ejerciciomeli.utils.SearchParamsUtils.SearchParams
+import com.todoware.ejerciciomeli.utils.SearchParams
+
 
 /**
  *  View model promoted to activity context please refer to this for the details
+ *  also make sense for this no persistent repo and a single datasource needed for all the cases
  *  https://developer.android.com/topic/libraries/architecture/viewmodel#sharing
  */
 

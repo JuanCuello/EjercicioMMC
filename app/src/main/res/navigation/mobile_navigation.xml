@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.todoware.ejerciciomeli.ui.AdvanceFilter.SearchFragment"
+        android:name="com.todoware.ejerciciomeli.ui.advanceFilter.SearchFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
@@ -16,20 +16,22 @@
         android:name="com.todoware.ejerciciomeli.ui.resultsDashboard.ResultsListFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_results">
+
         <action
             android:id="@+id/action_results_to_filters"
             app:destination="@id/navigation_home"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@anim/fragment_open_exit"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@+id/navigation_home"
             app:popUpToInclusive="true" />
+
         <action
             android:id="@+id/action_results_to_details"
             app:destination="@id/navigation_notifications"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
+            app:enterAnim="@anim/results_right_to_left"
+            app:exitAnim="@anim/fragment_open_exit"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@+id/navigation_notifications"
@@ -41,7 +43,7 @@
         android:id="@+id/navigation_notifications"
         android:name="com.todoware.ejerciciomeli.ui.description.DescriptionFragment"
         android:label="@string/description_screen_title"
-        tools:layout="@layout/fragment_description" >
+        tools:layout="@layout/fragment_description">
 
     </fragment>
 </navigation>

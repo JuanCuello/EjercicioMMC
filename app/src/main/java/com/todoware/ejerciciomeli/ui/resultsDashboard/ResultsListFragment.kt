@@ -16,6 +16,7 @@ import com.todoware.ejerciciomeli.R
 import com.todoware.ejerciciomeli.databinding.FragmentResultsBinding
 import com.todoware.ejerciciomeli.models.Result
 import com.todoware.ejerciciomeli.repository.MercadoLibreRepository
+import com.todoware.ejerciciomeli.ui.viewmodel.ResultsViewModel
 import com.todoware.ejerciciomeli.utils.PaginationListener
 import com.todoware.ejerciciomeli.utils.UiUtils
 
@@ -34,6 +35,8 @@ class ResultsListFragment : Fragment() {
     // safeguard to not show results that doesn't match the search
     var searchForValue = ""
     var recyclerAdapter: ResultRecyclerAdapter? = null
+    var isLoading = false
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,7 +53,10 @@ class ResultsListFragment : Fragment() {
         binding = FragmentResultsBinding.inflate(inflater, null, false)
         layoutManager = LinearLayoutManager(context)
         recyclerAdapter =
-            recyclerAdapter ?: ResultRecyclerAdapter(requireContext(), this::onItemClick)
+            recyclerAdapter ?: ResultRecyclerAdapter(
+                requireContext(),
+                this::onItemClick
+            )
 
 
         binding.content.setLayoutManager(layoutManager)
@@ -59,8 +65,22 @@ class ResultsListFragment : Fragment() {
         binding.layoutState.setViewForState(STATE_INITIAL, R.layout.state_layout_empty)
         binding.layoutState.setState(STATE_INITIAL)
 
-        var isLoading = false
+        startObserveData()
+        setScrollListener()
 
+        binding.resultFilterButton.setOnClickListener {
+            findNavController().navigate(R.id.action_results_to_filters)
+        }
+
+        binding.resultsEditText.doAfterTextChanged {
+            UiUtils.editTextDebounce(it, searchForValue, ::startSearch, Handler())
+        }
+
+        return binding.root
+    }
+
+    // Simple pagination handling
+    private fun setScrollListener() {
         binding.content.addOnScrollListener(object : PaginationListener(layoutManager) {
             override fun loadMoreItems() {
                 resultsViewModel.loadMore(searchForValue)
@@ -71,9 +91,14 @@ class ResultsListFragment : Fragment() {
                 return isLoading
             }
         })
+    }
+
+    // This livedata came from the repository
+    private fun startObserveData() {
         resultsViewModel.searchResultsData.observe(viewLifecycleOwner, Observer { response ->
-            binding.resultsTextDescription.text =
-                "${getText(R.string.currentSearchParameters)}= ${response?.query}"
+            var description = "${getText(R.string.currentSearchParameters)}= ${response?.query}"
+
+            binding.resultsTextDescription.text = description
             if (response != null) {
                 if (response.results.isEmpty())
                     binding.layoutState.setState(STATE_EMPTY)
@@ -91,16 +116,6 @@ class ResultsListFragment : Fragment() {
                 binding.layoutState.setState(StateLayout.STATE_ERROR)
             }
         })
-
-        binding.resultFilterButton.setOnClickListener {
-            findNavController().navigate(R.id.action_results_to_filters)
-        }
-
-        binding.resultsEditText.doAfterTextChanged {
-            UiUtils.editTextDebouncer(it, searchForValue, ::startSearch, Handler())
-        }
-
-        return binding.root
     }
 
     private fun onItemClick(result: Result?) {
