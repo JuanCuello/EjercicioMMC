@@ -9,12 +9,14 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/accessibility_description_image_network_error"
         android:src="@drawable/ic_dashboard_black_24dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:textAlignment="center"
         android:text="@string/network_error"
         android:textColor="#9BA5B5"
         android:textSize="16sp" />

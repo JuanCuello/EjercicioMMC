@@ -1,8 +1,7 @@
 ### Ejercicio MMC
 Android studio 4, Gradle 4, Kotlin 1.3.72, compile sdk 29
 
-- Run test
-        run code
+# This use livedata through the repository and not need to persist the data from the server
 
 # Security
    Intended to use out of the box shrink and minification, and proguard rules for R8
@@ -15,8 +14,10 @@ Android studio 4, Gradle 4, Kotlin 1.3.72, compile sdk 29
     Crashalytics automated error report Crashalytics (and maybe remote config), com.google.firebase:firebase-analytics version 17.4.4
     Mock server from squareup com.squareup.okhttp3:mockwebserver current version 4.8.0
     Picasso image loader is used for remote image fetching com.squareup.picasso current version 2.71828
-    For scope control I use com.shouquan:StateLayout to get a state layout
+    For limit the scope I use com.shouquan:StateLayout to get a state layout
+
 # Out of scope:
+   - Drawable animation, design
    - Grid layout manager to present on landscape layout
    - Analytics for data/behavior analysis.
    - Dexguard and dex2jar counter measures
