@@ -3,4 +3,37 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="accessibility_description_image">this is an image of the product</string>
+    <string name="accessibility_description_image_empty">this is an image of error, no item</string>
+    <string name="accessibility_description_image_network_error">this is an image of network error</string>
+    <string name="msg_welcome_search">Welcome, please search for something</string>
+
+    <!-- Common -->
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+
+    <!-- Items Values -->
+    <string name="item_condition_new">New item</string>
+    <string name="item_condition_used">Used item</string>
+    <string name="item_condition_refurvished">Refurbished!</string>
+    <string name="item_condition_unknown">Not available!</string>
+
+    <!-- Description view -->
+    <string name="description_screen_title">Item description</string>
+    <string name="description_title">Title:</string>
+    <string name="description_price">Product price:</string>
+    <string name="description_condition">Condition:</string>
+    <string name="description_location">Seller location:</string>
+    <string name="description_delivery">Free Shipping:</string>
+
+    <!-- Results view -->
+    <string name="search_advance_button">Filters…</string>
+
+    <!-- Network view -->
+    <string name="network_error">Network error. \n Please try again later.</string>
+    <string name="currentSearchParameters">Showing results for</string>
+    <string name="empty_search">We don\'t find anything for this search, \n Please search for something else.</string>
+    <string name="out_of_scope" translatable="false">Descartado por falta de tiempo, la app esta pensada para tunear los available_filters en el viewmodel genérico</string>
+
+
 </resources>

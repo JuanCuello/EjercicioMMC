@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ui.description.DescriptionFragment">
+
+        <TextView
+            android:id="@+id/description_title_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:padding="@dimen/view_space_big"
+            android:text="@string/description_title"
+            android:textAlignment="center"
+            android:textSize="@dimen/text_title_big"
+            android:textStyle="bold" />
+
+        <androidx.cardview.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/item_description_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/description_title_text"
+            android:layout_margin="@dimen/view_space_big"
+            android:foregroundGravity="center"
+            app:cardElevation="@dimen/view_space_small">
+
+            <ImageView
+                android:id="@+id/item_description_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/view_space_big"
+                android:contentDescription="@string/accessibility_description_image"
+                android:minWidth="190dp"
+                android:minHeight="190dp"
+                android:padding="@dimen/view_small_padding"
+                android:scaleType="fitCenter" />
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/item_description_layout_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/item_description_card"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/view_space_big"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="@string/description_price"
+                android:textAlignment="viewStart"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/item_description_price_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:textAlignment="viewEnd"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/item_description_layout_condition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/item_description_layout_price"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/view_space_big"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:text="@string/description_condition"
+                android:textAlignment="viewStart"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/item_description_condition_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/view_space_small"
+                android:layout_marginEnd="@dimen/view_space_small"
+                android:layout_weight="0.25"
+                android:textAlignment="viewEnd"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/view_space_small"
+                android:layout_weight="0.25"
+                android:text="@string/description_delivery"
+                android:textAlignment="viewStart"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/item_description_delivery_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:textAlignment="viewEnd"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/item_description_layout_condition"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/view_space_big"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="@string/description_location"
+                android:textAlignment="viewStart"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/item_description_location_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:textAlignment="viewEnd"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</ScrollView>
