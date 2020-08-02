@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">EjercicioMeli</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_home">Busqueda avanzada</string>
+    <string name="title_dashboard">Buscar</string>
     <string name="title_notifications">Notifications</string>
     <string name="accessibility_description_image">Esta es una imagen del producto</string>
-    <string name="accessibility_description_image_empty">sta es una imagen de error, sin items que mostrar</string>
-    <string name="accessibility_description_image_network_error">sta es una imagen de error de red</string>
+    <string name="accessibility_description_image_empty">Esta es una imagen de error, sin items que mostrar</string>
+    <string name="accessibility_description_image_network_error">Esta es una imagen de error de red</string>
     <string name="msg_welcome_search">Bienvenido, por favor ingrese una búsqueda</string>
 
     <!-- Common -->
@@ -28,6 +28,7 @@
 
     <!-- Results view -->
     <string name="search_advance_button">Filtros…</string>
+    <string name="search_for_hint">Quiero buscar…</string>
 
     <!-- Network view -->
     <string name="network_error">Error de red. \n Por favor reintente más tarde.</string>

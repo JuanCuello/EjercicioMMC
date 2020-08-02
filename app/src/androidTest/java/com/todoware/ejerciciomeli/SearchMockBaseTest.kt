@@ -3,8 +3,10 @@ package com.todoware.ejerciciomeli
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
 import com.todoware.ejerciciomeli.service.MercadoLibreService
+import okhttp3.internal.closeQuietly
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -12,10 +14,15 @@ import okhttp3.mockwebserver.RecordedRequest
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
+import org.junit.runner.RunWith
 
-
+/**
+ * Real device or emulator that can reach host network ir required to connect to the MockWebServer
+ * ip address, to perform the end to end connection
+ */
 open class SearchMockBaseTest {
     var responseOK =
         """{"site_id":"MLA","query":"got","paging":{"total":14063,"offset":0,"limit":50,"primary_results":1000},"results":[{"id":"MLA754748288","site_id":"MLA","title":"Funko Pop Jon Snow #49 Got Game Of Thrones Jugueterialeon","seller":{"id":17387880,"permalink":"http://perfil.mercadolibre.com.ar/REGALOSLEON","registration_date":"2012-01-05T10:33:50.000-04:00","car_dealer":false,"real_estate_agency":false,"tags":["normal","user_info_verified","credits_priority_4","credits_profile","eshop","mshops","messages_as_seller","messages_as_buyer"],"eshop":{"nick_name":"REGALOSLEON","eshop_rubro":null,"eshop_id":146991,"eshop_locations":[],"site_id":"MLA","eshop_logo_url":"http://resources.mlstatic.com/eshops/17387880.jpg","eshop_status_id":1,"seller":17387880,"eshop_experience":0},"seller_reputation":{"transactions":{"total":26523,"canceled":761,"period":"historic","ratings":{"negative":0,"positive":1,"neutral":0},"completed":25762},"power_seller_status":"platinum","metrics":{"claims":{"rate":0.0018,"value":7,"period":"3 months"},"delayed_handling_time":{"rate":0.0002,"value":1,"period":"3 months"},"sales":{"period":"3 months","completed":3675},"cancellations":{"rate":0.0023,"value":9,"period":"3 months"}},"level_id":"5_green"}},"price":2899.99,"currency_id":"ARS","available_quantity":1,"sold_quantity":5,"buying_mode":"buy_it_now","listing_type_id":"gold_special","stop_time":"2038-10-18T04:00:00.000Z","condition":"new","permalink":"https://articulo.mercadolibre.com.ar/MLA-754748288-funko-pop-jon-snow-49-got-game-of-thrones-jugueterialeon-_JM","thumbnail":"http://mla-s1-p.mlstatic.com/928700-MLA31022214745_062019-I.jpg",
@@ -41,8 +48,14 @@ open class SearchMockBaseTest {
             it.start()
             val baseUrl = it.url("/")
             MercadoLibreService.overrideBaseUrl = baseUrl.toString()
-            // it.dispatcher = dispatcherForSearch()
+
         }
+
+    }
+
+    @After
+    fun finalize() {
+        server?.close()
 
     }
 
@@ -64,7 +77,9 @@ open class SearchMockBaseTest {
         }
     }
 
-
+    /**
+     * This dispatcher is useful to set default responses, but doesn't allow to override
+     */
     fun dispatcherForSearch(): Dispatcher {
         return object : Dispatcher() {
             @Throws(InterruptedException::class)

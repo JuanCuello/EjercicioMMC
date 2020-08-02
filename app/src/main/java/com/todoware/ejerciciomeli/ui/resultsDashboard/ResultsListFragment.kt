@@ -2,6 +2,8 @@ package com.todoware.ejerciciomeli.ui.resultsDashboard
 
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,13 +26,14 @@ import com.todoware.ejerciciomeli.utils.UiUtils
  * Shows the basic search and a list of the results to the user
  * This view will be the default to the navigation on the activity
  */
-class ResultsListFragment : Fragment() {
+const val TAG = "ResultsListFragment"
+const val STATE_EMPTY = 3
+const val STATE_INITIAL = 4
 
+class ResultsListFragment : Fragment() {
     lateinit var binding: FragmentResultsBinding
     lateinit var layoutManager: LinearLayoutManager
     lateinit var resultsViewModel: ResultsViewModel
-    private val STATE_EMPTY = 3
-    private val STATE_INITIAL = 4
 
     // safeguard to not show results that doesn't match the search
     var searchForValue = ""
@@ -62,7 +65,7 @@ class ResultsListFragment : Fragment() {
         binding.content.setLayoutManager(layoutManager)
         binding.content.setAdapter(recyclerAdapter)
         binding.layoutState.setViewForState(STATE_EMPTY, R.layout.state_layout_empty)
-        binding.layoutState.setViewForState(STATE_INITIAL, R.layout.state_layout_empty)
+        binding.layoutState.setViewForState(STATE_INITIAL, R.layout.state_layout_initial)
         binding.layoutState.setState(STATE_INITIAL)
 
         startObserveData()
@@ -73,7 +76,7 @@ class ResultsListFragment : Fragment() {
         }
 
         binding.resultsEditText.doAfterTextChanged {
-            UiUtils.editTextDebounce(it, searchForValue, ::startSearch, Handler())
+            UiUtils.editTextDebounce(it.toString(), searchForValue, ::startSearch, Handler())
         }
 
         return binding.root
@@ -83,8 +86,9 @@ class ResultsListFragment : Fragment() {
     private fun setScrollListener() {
         binding.content.addOnScrollListener(object : PaginationListener(layoutManager) {
             override fun loadMoreItems() {
-                resultsViewModel.loadMore(searchForValue)
                 isLoading = true;
+                resultsViewModel.loadMore(searchForValue)
+                binding.layoutState.setState(StateLayout.STATE_LOADING)
             }
 
             override fun isLoading(): Boolean {
@@ -97,17 +101,19 @@ class ResultsListFragment : Fragment() {
     private fun startObserveData() {
         resultsViewModel.searchResultsData.observe(viewLifecycleOwner, Observer { response ->
             var description = "${getText(R.string.currentSearchParameters)}= ${response?.query}"
-
+            Log.d(TAG, "Getting observer response $description")
             binding.resultsTextDescription.text = description
+
             if (response != null) {
+
                 if (response.results.isEmpty())
                     binding.layoutState.setState(STATE_EMPTY)
                 else {
                     // initialize the adapter if null and set the data
                     recyclerAdapter?.let {
+                        binding.layoutState.setState(StateLayout.STATE_CONTENT)
                         it.addContent(response)
                         it.notifyDataSetChanged()
-                        binding.layoutState.setState(StateLayout.STATE_CONTENT)
                         isLoading = false
                         binding.resultFilterButton.isEnabled = true
                     }
@@ -121,6 +127,7 @@ class ResultsListFragment : Fragment() {
     private fun onItemClick(result: Result?) {
         result ?: return
         resultsViewModel.select(result)
+        Log.d(TAG, "Open description for item ${result.id}")
         findNavController().navigate(R.id.action_results_to_details)
     }
 

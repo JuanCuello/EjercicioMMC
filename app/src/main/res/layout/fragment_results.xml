@@ -11,6 +11,7 @@
         android:id="@+id/results_text_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/view_space_big"
         android:orientation="horizontal"
         app:endIconMode="clear_text">
 
@@ -21,6 +22,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:hint="@string/search_for_hint"
             android:textAlignment="textStart"
             android:textSize="20sp" />
 

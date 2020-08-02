@@ -11,19 +11,23 @@ import org.hamcrest.Matchers
 import org.hamcrest.Matchers.allOf
 import org.junit.Test
 
+
+/**
+ * Real device or emulator that can reach host network ir required to connect to the MockWebServer
+ * ip address, to perform the end to end connection
+ */
 @LargeTest
 class SearchResultsScreen : SearchMockBaseTest() {
 
     // Check empty screen on main view
     @Test
     fun search() {
-        val textView = onView(
+        onView(
             allOf(
-                withText(R.string.empty_search),
+                withText(R.string.msg_welcome_search),
                 isDisplayed()
             )
         )
-        textView.check(matches(withText(R.string.empty_search)))
 
         val textInputEditText = onView(
             allOf(
@@ -266,10 +270,7 @@ class SearchResultsScreen : SearchMockBaseTest() {
         Thread.sleep(600)
 
         val textView = onView(
-            allOf(
-                withText(R.string.network_error),
-                isDisplayed()
-            )
+            withText(R.string.network_error)
         )
         textView.check(matches(isDisplayed()))
     }
