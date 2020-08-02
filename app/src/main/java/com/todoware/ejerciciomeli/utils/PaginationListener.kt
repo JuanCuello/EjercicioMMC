@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 const val TAG = "PaginationListener"
 
 abstract class PaginationListener
-    (private val layoutManager: LinearLayoutManager) :
-    RecyclerView.OnScrollListener() {
+    (private val layoutManager: LinearLayoutManager) : RecyclerView.OnScrollListener() {
+
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
 
         super.onScrolled(recyclerView, dx, dy)

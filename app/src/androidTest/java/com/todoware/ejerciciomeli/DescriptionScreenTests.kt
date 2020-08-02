@@ -1,18 +1,18 @@
 package com.todoware.ejerciciomeli
 
 
-import android.view.View
-import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import okhttp3.mockwebserver.MockResponse
-import org.hamcrest.Description
-import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
-import org.hamcrest.TypeSafeMatcher
 import org.junit.Test
+
+/**
+ * Real device or emulator that can reach host network ir required to connect to the MockWebServer
+ * ip address, to perform the end to end connection
+ */
 
 class DescriptionScreenTests : SearchMockBaseTest() {
 
@@ -21,7 +21,9 @@ class DescriptionScreenTests : SearchMockBaseTest() {
     @Test
     fun assertPortraitDescriptionItems() {
         //enqueue the ok "got" search response
-        server!!.enqueue(MockResponse().setBody(responseOK))
+        server!!.enqueue(
+            MockResponse().setBody(responseOK)
+        )
 
         val textInputEditText = onView(
             allOf(
@@ -45,7 +47,6 @@ class DescriptionScreenTests : SearchMockBaseTest() {
 
         // EditText debounce
         Thread.sleep(800)
-
         val textViewRow = onView(
             allOf(
                 withText("Funko Pop Jon Snow #49 Got Game Of Thrones Jugueterialeon"),

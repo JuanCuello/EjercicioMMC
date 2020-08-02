@@ -1,7 +1,6 @@
 package com.todoware.ejerciciomeli.utils
 
 import android.os.Handler
-import android.text.Editable
 
 object UiUtils {
 
@@ -16,12 +15,11 @@ object UiUtils {
      **/
 
     fun editTextDebounce(
-        editable: Editable?,
+        searchText: String?,
         oldText: String,
         onChange: (param: String) -> Unit,
         handler: Handler
     ) {
-        val searchText = editable?.toString()?.trim()
 
         // conditions to skip the change if the user insert a short term
         if (searchText.isNullOrEmpty() || searchText == oldText || searchText.length < 2)

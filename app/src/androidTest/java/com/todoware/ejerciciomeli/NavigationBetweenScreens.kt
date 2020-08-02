@@ -1,13 +1,17 @@
 package com.todoware.ejerciciomeli
 
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import okhttp3.mockwebserver.MockResponse
 import org.hamcrest.Matchers.allOf
 import org.junit.Test
+
+/**
+ * Real device or emulator that can reach host network ir required to connect to the MockWebServer
+ * ip address, to perform the end to end connection
+ */
 
 class NavigationBetweenScreens : SearchMockBaseTest() {
 
@@ -17,7 +21,7 @@ class NavigationBetweenScreens : SearchMockBaseTest() {
         server!!.enqueue(MockResponse().setBody(responseOK))
         val textView = onView(
             allOf(
-                withText("Dashboard"),
+                withText(R.string.title_dashboard),
                 childAtPosition(
                     allOf(
                         withId(R.id.action_bar),

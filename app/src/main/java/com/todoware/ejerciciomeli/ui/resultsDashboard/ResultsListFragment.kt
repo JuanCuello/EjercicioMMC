@@ -65,7 +65,7 @@ class ResultsListFragment : Fragment() {
         binding.content.setLayoutManager(layoutManager)
         binding.content.setAdapter(recyclerAdapter)
         binding.layoutState.setViewForState(STATE_EMPTY, R.layout.state_layout_empty)
-        binding.layoutState.setViewForState(STATE_INITIAL, R.layout.state_layout_empty)
+        binding.layoutState.setViewForState(STATE_INITIAL, R.layout.state_layout_initial)
         binding.layoutState.setState(STATE_INITIAL)
 
         startObserveData()
@@ -86,8 +86,9 @@ class ResultsListFragment : Fragment() {
     private fun setScrollListener() {
         binding.content.addOnScrollListener(object : PaginationListener(layoutManager) {
             override fun loadMoreItems() {
-                resultsViewModel.loadMore(searchForValue)
                 isLoading = true;
+                resultsViewModel.loadMore(searchForValue)
+                binding.layoutState.setState(StateLayout.STATE_LOADING)
             }
 
             override fun isLoading(): Boolean {
@@ -100,17 +101,19 @@ class ResultsListFragment : Fragment() {
     private fun startObserveData() {
         resultsViewModel.searchResultsData.observe(viewLifecycleOwner, Observer { response ->
             var description = "${getText(R.string.currentSearchParameters)}= ${response?.query}"
-
+            Log.d(TAG, "Getting observer response $description")
             binding.resultsTextDescription.text = description
+
             if (response != null) {
+
                 if (response.results.isEmpty())
                     binding.layoutState.setState(STATE_EMPTY)
                 else {
                     // initialize the adapter if null and set the data
                     recyclerAdapter?.let {
+                        Looper.getMainLooper().run { binding.layoutState.setState(StateLayout.STATE_CONTENT) }
                         it.addContent(response)
                         it.notifyDataSetChanged()
-                        binding.layoutState.setState(StateLayout.STATE_CONTENT)
                         isLoading = false
                         binding.resultFilterButton.isEnabled = true
                     }
