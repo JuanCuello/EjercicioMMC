@@ -14,11 +14,11 @@ import com.todoware.ejerciciomeli.models.SearchResponse
 import java.text.NumberFormat
 
 class ResultRecyclerAdapter(
-    private var context: Context,
+    var context: Context,
     var onItemClick: (param: Result) -> Unit
 
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var searchResponse: SearchResponse? = null
+    var searchResponse: SearchResponse? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
             RecyclerView.ViewHolder {
@@ -38,14 +38,16 @@ class ResultRecyclerAdapter(
 
         result?.let {
             // Picasso is handling the external image fetching
-            Picasso.get().load(result.thumbnail).into(viewHolder.imgViewIcon)
-            viewHolder.txtViewTitle.text = result.title
-            val price = NumberFormat.getCurrencyInstance().format(result.price ?: 0)
+            it.thumbnail.let { that ->
+                Picasso.get().load(that).into(viewHolder.imgViewIcon)
+            }
+            viewHolder.txtViewTitle.text = it.title
+            val price = NumberFormat.getCurrencyInstance().format(it.price ?: 0)
             val description = "${context.getText(R.string.description_price)} :$price"
             viewHolder.txtViewDescription.text = description
 
-            viewHolder.recycleItemRow.setOnClickListener {
-                onItemClick(result)
+            viewHolder.recycleItemRow.setOnClickListener { view ->
+                onItemClick(it)
             }
         }
     }

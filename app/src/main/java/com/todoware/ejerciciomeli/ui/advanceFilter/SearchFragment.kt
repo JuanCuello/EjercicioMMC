@@ -2,6 +2,7 @@ package com.todoware.ejerciciomeli.ui.advanceFilter
 
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,8 @@ import androidx.lifecycle.Observer
 import com.todoware.ejerciciomeli.databinding.FragmentHomeBinding
 import com.todoware.ejerciciomeli.ui.viewmodel.ResultsViewModel
 import com.todoware.ejerciciomeli.utils.UiUtils.editTextDebounce
+
+const val TAG = "SearchFragment"
 
 class SearchFragment : Fragment() {
 
@@ -38,7 +41,7 @@ class SearchFragment : Fragment() {
         super.onResume()
 
         binding.searchEditText.doAfterTextChanged {
-            editTextDebounce(it, searchForValue, ::startSearch, Handler())
+            editTextDebounce(it.toString().trim(), searchForValue, ::startSearch, Handler())
         }
 
         homeViewModel.searchResultsData.observe(viewLifecycleOwner, Observer { response ->
@@ -53,6 +56,7 @@ class SearchFragment : Fragment() {
     private fun startSearch(search: String) {
         searchForValue = search
         homeViewModel.searchQuery(searchForValue)
-
+        Log.d(TAG, "Search triggered: $search, ")
+        
     }
 }

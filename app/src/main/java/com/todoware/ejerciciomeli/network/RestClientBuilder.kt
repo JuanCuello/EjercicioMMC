@@ -5,9 +5,9 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-
 object RestClientBuilder {
 
+    // Replace interceptor to Level.BODY to dump the response
     val logging = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
     val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(logging).build()
 

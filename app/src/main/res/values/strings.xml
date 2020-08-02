@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">EjercicioMeli</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_home">Advance Search</string>
+    <string name="title_dashboard">Search</string>
     <string name="title_notifications">Notifications</string>
     <string name="accessibility_description_image">this is an image of the product</string>
     <string name="accessibility_description_image_empty">this is an image of error, no item</string>
@@ -28,6 +28,7 @@
 
     <!-- Results view -->
     <string name="search_advance_button">Filters…</string>
+    <string name="search_for_hint">Wanna search for…</string>
 
     <!-- Network view -->
     <string name="network_error">Network error. \n Please try again later.</string>
