@@ -2,6 +2,8 @@ package com.todoware.ejerciciomeli.ui.resultsDashboard
 
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,13 +26,14 @@ import com.todoware.ejerciciomeli.utils.UiUtils
  * Shows the basic search and a list of the results to the user
  * This view will be the default to the navigation on the activity
  */
-class ResultsListFragment : Fragment() {
+const val TAG = "ResultsListFragment"
+const val STATE_EMPTY = 3
+const val STATE_INITIAL = 4
 
+class ResultsListFragment : Fragment() {
     lateinit var binding: FragmentResultsBinding
     lateinit var layoutManager: LinearLayoutManager
     lateinit var resultsViewModel: ResultsViewModel
-    private val STATE_EMPTY = 3
-    private val STATE_INITIAL = 4
 
     // safeguard to not show results that doesn't match the search
     var searchForValue = ""
@@ -121,6 +124,7 @@ class ResultsListFragment : Fragment() {
     private fun onItemClick(result: Result?) {
         result ?: return
         resultsViewModel.select(result)
+        Log.d(TAG, "Open description for item ${result.id}")
         findNavController().navigate(R.id.action_results_to_details)
     }
 
