@@ -41,7 +41,7 @@ class SearchFragment : Fragment() {
         super.onResume()
 
         binding.searchEditText.doAfterTextChanged {
-            editTextDebounce(it, searchForValue, ::startSearch, Handler())
+            editTextDebounce(it.toString().trim(), searchForValue, ::startSearch, Handler())
         }
 
         homeViewModel.searchResultsData.observe(viewLifecycleOwner, Observer { response ->

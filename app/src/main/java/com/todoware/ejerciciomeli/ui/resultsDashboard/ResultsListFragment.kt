@@ -76,7 +76,7 @@ class ResultsListFragment : Fragment() {
         }
 
         binding.resultsEditText.doAfterTextChanged {
-            UiUtils.editTextDebounce(it, searchForValue, ::startSearch, Handler())
+            UiUtils.editTextDebounce(it.toString(), searchForValue, ::startSearch, Handler())
         }
 
         return binding.root
@@ -111,7 +111,7 @@ class ResultsListFragment : Fragment() {
                 else {
                     // initialize the adapter if null and set the data
                     recyclerAdapter?.let {
-                        Looper.getMainLooper().run { binding.layoutState.setState(StateLayout.STATE_CONTENT) }
+                        binding.layoutState.setState(StateLayout.STATE_CONTENT)
                         it.addContent(response)
                         it.notifyDataSetChanged()
                         isLoading = false
